@@ -47,7 +47,23 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     public UsuarioEntity actualizarUsuario(UsuarioEntity usuario, MultipartFile file) {
-        return usuarioRepository.save(usuario);
+    	// Obtiene el usuario existente de la base de datos
+        UsuarioEntity usuarioExistente = usuarioRepository.findById(usuario.getUsuarioId()).get();
+
+        // Si se proporciona una nueva imagen, maneja la antigua
+        if (file != null && !file.isEmpty()) {
+            // Elimina la imagen antigua si existe
+            if (usuarioExistente.getUrlImagen() != null) {
+                Utilitarios.eliminarImagen(usuarioExistente.getUrlImagen());
+            }
+            // Guarda la nueva imagen
+            String nombreImagen = Utilitarios.Imagen(file);
+            usuario.setUrlImagen(nombreImagen); // Actualiza el nombre de la imagen en la BD
+        } else {
+            // Mantiene la imagen existente si no se proporciona una nueva
+            usuario.setUrlImagen(usuarioExistente.getUrlImagen());
+        }
+    	return usuarioRepository.save(usuario);
     }
 
     @Override
@@ -80,6 +96,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return usuario.getClave().equals(password)	;
 	}
 	
+	/*
 	private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -93,5 +110,6 @@ public class UsuarioServiceImpl implements UsuarioService{
             throw new RuntimeException(e);
         }
     }
+    */
 
 }
