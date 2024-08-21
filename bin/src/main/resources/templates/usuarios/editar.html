@@ -2,13 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Usuario</title>
+    <title>Editar Usuario</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Registro de Usuario</h2>
-    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post" enctype="multipart/form-data">
+    <h2>Editar Usuario</h2>
+    <form th:action="@{/usuarios/actualizar}" th:object="${usuario}" method="post">
+        <input type="hidden" th:field="*{usuarioId}"/>
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
@@ -62,26 +63,23 @@
         </div>
         <div class="form-group">
             <label for="clave">Contraseña:</label>
-            <input type="password" th:field="*{clave}" class="form-control" id="clave" placeholder="Ingresa tu contraseña" required>
+            <input type="text" th:field="*{clave}" class="form-control" id="clave" placeholder="Ingresa tu contraseña">
         </div>
         <div class="form-group">
             <label for="roles">Rol:</label>
             <select id="roles" name="rolId" class="form-control">
-                <option th:each="rol : ${roles}" th:value="${rol.rolId}" th:text="${rol.nombre}"></option>
+                <option th:each="rol : ${roles}" th:value="${rol.rolId}" th:text="${rol.nombre}"
+                    th:selected="${rol.rolId == usuario.rol.rolId}"></option>
             </select>
         </div>
         <div class="form-group">
             <label for="tipoMembresia">Tipo de Membresía:</label>
             <select th:field="*{tipoMembresia}" class="form-control" id="tipoMembresia">
-                <option value="REGULAR">Regular</option>
-                <option value="PREMIUM">Premium</option>
+                <option value="REGULAR" th:selected="${usuario.tipoMembresia == 'REGULAR'}">Regular</option>
+                <option value="PREMIUM" th:selected="${usuario.tipoMembresia == 'PREMIUM'}">Premium</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="file">Imagen</label>
-            <input type="file" class="form-control-file" id="file" name="file">
-        </div>
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
 </div>
 </body>

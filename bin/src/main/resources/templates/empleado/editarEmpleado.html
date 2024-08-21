@@ -2,28 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Usuario</title>
+    <title>Editar Empleado</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Registro de Usuario</h2>
-    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post" enctype="multipart/form-data">
+    <h2>Editar Empleado</h2>
+    <form th:action="@{/empleado/actualizar}" th:object="${usuario}" method="post">
+        <!-- Hidden field to pass the ID -->
+        <input type="hidden" th:field="*{usuarioId}" />
         <div class="form-group">
             <label for="nombre">Nombre:</label>
-            <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+            <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Ingresa el nombre" required>
         </div>
         <div class="form-group">
             <label for="apellido">Apellido:</label>
-            <input type="text" th:field="*{apellido}" class="form-control" id="apellido" placeholder="Ingresa tu apellido" required>
+            <input type="text" th:field="*{apellido}" class="form-control" id="apellido" placeholder="Ingresa el apellido" required>
         </div>
         <div class="form-group">
             <label for="dni">DNI:</label>
-            <input type="text" th:field="*{dni}" class="form-control" id="dni" placeholder="Ingresa tu DNI" required>
+            <input type="text" th:field="*{dni}" class="form-control" id="dni" placeholder="Ingresa el DNI" required>
         </div>
         <div class="form-group">
             <label for="direccion">Dirección:</label>
-            <input type="text" th:field="*{direccion}" class="form-control" id="direccion" placeholder="Ingresa tu dirección" required>
+            <input type="text" th:field="*{direccion}" class="form-control" id="direccion" placeholder="Ingresa la dirección" required>
         </div>
         <div class="form-group">
             <label for="estadoCivil">Estado Civil:</label>
@@ -50,25 +52,19 @@
         </div>
         <div class="form-group">
             <label for="telefono">Teléfono:</label>
-            <input type="text" th:field="*{telefono}" class="form-control" id="telefono" placeholder="Ingresa tu teléfono">
+            <input type="text" th:field="*{telefono}" class="form-control" id="telefono" placeholder="Ingresa el teléfono">
         </div>
         <div class="form-group">
             <label for="correo">Correo Electrónico:</label>
-            <input type="email" th:field="*{correo}" class="form-control" id="correo" placeholder="Ingresa tu correo" required>
+            <input type="email" th:field="*{correo}" class="form-control" id="correo" placeholder="Ingresa el correo" required>
         </div>
         <div class="form-group">
             <label for="nombreUsuario">Nombre de Usuario:</label>
-            <input type="text" th:field="*{nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Ingresa tu nombre de usuario" required>
+            <input type="text" th:field="*{nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Ingresa el nombre de usuario" required>
         </div>
         <div class="form-group">
             <label for="clave">Contraseña:</label>
-            <input type="password" th:field="*{clave}" class="form-control" id="clave" placeholder="Ingresa tu contraseña" required>
-        </div>
-        <div class="form-group">
-            <label for="roles">Rol:</label>
-            <select id="roles" name="rolId" class="form-control">
-                <option th:each="rol : ${roles}" th:value="${rol.rolId}" th:text="${rol.nombre}"></option>
-            </select>
+            <input type="password" th:field="*{clave}" class="form-control" id="clave" placeholder="Ingresa la contraseña" required>
         </div>
         <div class="form-group">
             <label for="tipoMembresia">Tipo de Membresía:</label>
@@ -77,11 +73,9 @@
                 <option value="PREMIUM">Premium</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="file">Imagen</label>
-            <input type="file" class="form-control-file" id="file" name="file">
-        </div>
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <!-- No role selection since it's always Admin -->
+        <input type="hidden" th:field="*{rol.rolId}" value="3" /> <!-- Assuming '1' is the ID for Admin role -->
+        <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
 </div>
 </body>

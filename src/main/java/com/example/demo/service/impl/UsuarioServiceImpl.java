@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 
 import java.security.MessageDigest;
@@ -8,10 +8,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.UsuarioEntity;
 import com.example.demo.repository.UsuarioRepository;
+import com.example.demo.service.UsuarioService;
+import com.example.demo.utils.Utilitarios;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService{
@@ -20,8 +22,12 @@ public class UsuarioServiceImpl implements UsuarioService{
     private UsuarioRepository usuarioRepository;
 	
     @Override
-    public UsuarioEntity guardarUsuario(UsuarioEntity usuario) {
-        return usuarioRepository.save(usuario);
+    public UsuarioEntity guardarUsuario(UsuarioEntity usuario, MultipartFile file) {
+    	if (file != null && !file.isEmpty()) {
+            String nombreImagen = Utilitarios.Imagen(file);
+            usuario.setUrlImagen(nombreImagen); // Guarda el nombre de la imagen en la BD
+        }
+    	return usuarioRepository.save(usuario);
     }
 
     @Override
@@ -40,7 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
-    public UsuarioEntity actualizarUsuario(UsuarioEntity usuario) {
+    public UsuarioEntity actualizarUsuario(UsuarioEntity usuario, MultipartFile file) {
         return usuarioRepository.save(usuario);
     }
 

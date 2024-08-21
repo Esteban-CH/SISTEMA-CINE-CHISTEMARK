@@ -2,11 +2,13 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.demo.entity.UsuarioEntity;
 
 public interface UsuarioService {
 	
-	UsuarioEntity guardarUsuario(UsuarioEntity usuario);
+	UsuarioEntity guardarUsuario(UsuarioEntity usuario, MultipartFile file);
 
     UsuarioEntity obtenerUsuarioPorId(Long id);
 
@@ -14,7 +16,7 @@ public interface UsuarioService {
 
     List<UsuarioEntity> listarUsuarios();
 
-    UsuarioEntity actualizarUsuario(UsuarioEntity usuario);
+    UsuarioEntity actualizarUsuario(UsuarioEntity usuario, MultipartFile file);
 
     void eliminarUsuario(Long id);
 
