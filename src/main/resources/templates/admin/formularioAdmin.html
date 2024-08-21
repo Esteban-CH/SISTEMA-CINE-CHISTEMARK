@@ -8,7 +8,7 @@
 <body>
 <div class="container mt-5">
     <h2>Registro del Cliente</h2>
-    <form th:action="@{/admin/guardar}" th:object="${admin}" method="post">
+    <form th:action="@{/admin/guardar}" th:object="${admin}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
@@ -70,6 +70,10 @@
                 <option value="REGULAR">Regular</option>
                 <option value="PREMIUM">Premium</option>
             </select>
+        </div>
+        <div class="form-group">
+            <label for="file">Imagen</label>
+            <input type="file" class="form-control-file" id="file" name="file">
         </div>
         <input type="hidden" th:field="*{rol.nombre}" value="ADMIN">
         <button type="submit" class="btn btn-primary">Registrar</button>
