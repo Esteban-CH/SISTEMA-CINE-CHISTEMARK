@@ -8,7 +8,7 @@
 <body>
 <div class="container mt-5">
     <h2>Editar Usuario</h2>
-    <form th:action="@{/usuarios/actualizar}" th:object="${usuario}" method="post">
+    <form th:action="@{/usuarios/actualizar}" th:object="${usuario}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{usuarioId}"/>
         <div class="form-group">
             <label for="nombre">Nombre:</label>
@@ -79,6 +79,11 @@
                 <option value="PREMIUM" th:selected="${usuario.tipoMembresia == 'PREMIUM'}">Premium</option>
             </select>
         </div>
+        <!-- Campos del formulario, incluyendo el campo de archivo -->
+	    <div class="form-group">
+	        <label for="file">Imagen</label>
+	        <input type="file" class="form-control-file" id="file" name="file">
+	    </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
 </div>
