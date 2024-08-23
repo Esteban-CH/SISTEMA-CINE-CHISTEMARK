@@ -40,17 +40,33 @@ public class PeliculaEntity {
 	@Column(length = 60, nullable = false)
 	private String director;
 	
-	private Double calificacion;
+	@Column(length = 50)
+	private String calificacion;
+	
+	@Column(length = 255)
 	private String reparto;
 	
 	@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fecha_estreno", nullable = false)
 	private Date fchaEstreno;
-	private int duracion;
+	
+	private Integer duracion;
 	
 	@Column(name = "url_imagen", columnDefinition = "TEXT")
 	private String urlImagen;
+	
+	@Column(name = "trailer_url", columnDefinition = "TEXT")
+    private String trailerUrl;
+    
+    @Column(length = 20)
+    private String estado;
+    
+    @Column(length = 50)
+    private String paisOrigen;
+    
+    @Column(length = 50)
+    private String idiomaOriginal;
 	
 	@CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -65,16 +81,4 @@ public class PeliculaEntity {
 	@ManyToOne
 	@JoinColumn(name = "genero_id")
 	private GeneroEntity genero;
-	
-	@ManyToOne
-    @JoinColumn(name = "productora_id")
-	private ProductoraEntity productora;
-	
-	@ManyToMany
-    @JoinTable(
-        name = "pelicula_actor",
-        joinColumns = @JoinColumn(name = "pelicula_id"),
-        inverseJoinColumns = @JoinColumn(name = "actor_id")
-    )
-    private List<ActorEntity> actores;
 }
