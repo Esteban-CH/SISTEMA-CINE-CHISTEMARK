@@ -37,7 +37,7 @@ public class UsuarioController {
     public String guardarUsuario(@ModelAttribute UsuarioEntity usuario, 
                                  @RequestParam Long rolId, 
                                  @RequestParam("file") MultipartFile file) {
-        RolEntity rol = rolRepository.findById(rolId).orElse(null);
+        RolEntity rol = rolRepository.findById(rolId).get();
         usuario.setRol(rol);
         usuarioService.guardarUsuario(usuario, file);
         return "redirect:/usuarios"; // Redirige a la vista de usuarios

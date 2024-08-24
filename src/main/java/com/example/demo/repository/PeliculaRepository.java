@@ -14,5 +14,5 @@ public interface PeliculaRepository extends JpaRepository<PeliculaEntity, Long>{
     
     List<PeliculaEntity> findByDirector(String director);
     
-    List<PeliculaEntity> findByGeneroId(Long generoId);
+    List<PeliculaEntity> findByGenero_GeneroId(Long generoId);
 }

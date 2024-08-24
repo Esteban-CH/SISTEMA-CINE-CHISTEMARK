@@ -76,7 +76,7 @@ public class PeliculaServiceImpl implements PeliculaService{
 
 	@Override
 	public List<PeliculaEntity> buscarPorGeneroId(Long generoId) {
-		return peliculaRepository.findByGeneroId(generoId);
+		return peliculaRepository.findByGenero_GeneroId(generoId);
 	}
 
 }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Película</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Editar Película</h2>
+    <form th:action="@{/peliculas/editar/{id}(id=${pelicula.peliculaId})}" th:object="${pelicula}" method="post" enctype="multipart/form-data">
+        
+        <!-- Campo Título -->
+        <div class="form-group">
+            <label for="titulo">Título</label>
+            <input type="text" th:field="*{titulo}" class="form-control" id="titulo" required>
+        </div>
+
+        <!-- Campo Director -->
+        <div class="form-group">
+            <label for="director">Director</label>
+            <input type="text" th:field="*{director}" class="form-control" id="director" required>
+        </div>
+        
+        <div class="form-group">
+       	    <label for="calificacion">Calificación</label>
+            <input type="text" id="calificacion" name="calificacion" th:value="${pelicula.calificacion}" class="form-control">
+        </div>
+
+        <!-- Campo Descripción -->
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea th:field="*{descripcion}" class="form-control" id="descripcion" rows="3" required></textarea>
+        </div>
+
+        <!-- Campo Género -->
+        <div class="form-group">
+            <label for="genero">Género</label>
+            <select th:field="*{genero.generoId}" class="form-control" id="genero" required>
+                <option th:each="genero : ${genero}" th:value="${genero.generoId}" th:text="${genero.nombre}" 
+                    th:selected="${pelicula.genero?.generoId == genero.generoId}">
+                </option>
+            </select>
+        </div>
+
+        <!-- Campo Fecha de Estreno -->
+        <div class="form-group">
+            <label for="fchaEstreno">Fecha de Estreno</label>
+            <input type="date" th:field="*{fchaEstreno}" class="form-control" id="fchaEstreno" required>
+        </div>
+
+        <!-- Campo Duración -->
+        <div class="form-group">
+            <label for="duracion">Duración (minutos)</label>
+            <input type="number" th:field="*{duracion}" class="form-control" id="duracion" required>
+        </div>
+
+        <!-- Campo Imagen -->
+        <div class="form-group">
+            <label for="file">Imagen</label>
+            <input type="file" class="form-control-file" id="file" name="file">
+            <div th:if="${pelicula.urlImagen}">
+                <img th:src="@{/img/{nombreImagen}(nombreImagen=${pelicula.urlImagen})}" alt="Imagen actual" class="img-thumbnail mt-2" style="max-height: 200px;">
+                <p class="mt-2">Imagen actual: <span th:text="${pelicula.urlImagen}"></span></p>
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a th:href="@{/peliculas}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+</body>
+</html>
