@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.demo.entity.GeneroEntity;
 import com.example.demo.entity.PeliculaEntity;
-import com.example.demo.repository.GeneroRepository;
 import com.example.demo.service.GeneroService;
 import com.example.demo.service.PeliculaService;
 
@@ -32,7 +30,8 @@ public class PeliculaController {
 	
 	@GetMapping("/listar")
     public String listarPeliculas(Model model) {
-        model.addAttribute("peliculas", peliculaService.listarPeliculas());
+        model.addAttribute("peliculas", null);
+        model.addAttribute("genero", generoService.listarGeneros());
         return "peliculas/listar";
     }
 	
@@ -95,6 +94,7 @@ public class PeliculaController {
             peliculas = peliculaService.listarPeliculas();
         }
         model.addAttribute("peliculas", peliculas);
+        model.addAttribute("genero", generoService.listarGeneros());
         return "peliculas/listar";
     }
 }

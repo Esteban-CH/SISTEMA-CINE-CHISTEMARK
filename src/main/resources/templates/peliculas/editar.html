@@ -27,6 +27,11 @@
        	    <label for="calificacion">Calificación</label>
             <input type="text" id="calificacion" name="calificacion" th:value="${pelicula.calificacion}" class="form-control">
         </div>
+        
+        <div class="form-group">
+                <label for="reparto">Reparto</label>
+                <input type="text" id="reparto" name="reparto" th:value="${pelicula.reparto}" class="form-control">
+        </div>
 
         <!-- Campo Descripción -->
         <div class="form-group">
@@ -37,7 +42,7 @@
         <!-- Campo Género -->
         <div class="form-group">
             <label for="genero">Género</label>
-            <select th:field="*{genero.generoId}" class="form-control" id="genero" required>
+            <select class="form-control" id="genero" name="genero" required>
                 <option th:each="genero : ${genero}" th:value="${genero.generoId}" th:text="${genero.nombre}" 
                     th:selected="${pelicula.genero?.generoId == genero.generoId}">
                 </option>
@@ -68,7 +73,7 @@
 
         <!-- Botones -->
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        <a th:href="@{/peliculas}" class="btn btn-secondary">Cancelar</a>
+        <a href="/peliculas/listar" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 

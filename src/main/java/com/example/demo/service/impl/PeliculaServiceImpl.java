@@ -39,7 +39,7 @@ public class PeliculaServiceImpl implements PeliculaService{
 
 	@Override
 	public PeliculaEntity actualizarPelicula(PeliculaEntity pelicula, MultipartFile file) {
-		PeliculaEntity peliculaExistente = peliculaRepository.findById(pelicula.getPeliculaId()).get();
+		PeliculaEntity peliculaExistente = obtenerPeliculaPorId(pelicula.getPeliculaId()).get();
 		
 		// Si se proporciona una nueva imagen, maneja la antigua
         if (file != null && !file.isEmpty()) {

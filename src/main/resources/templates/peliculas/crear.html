@@ -51,7 +51,7 @@
 
             <div class="form-group">                
                 <label for="genero">Género</label>
-		        <select th:field="*{genero.generoId}" class="form-control" id="genero" required>
+		        <select class="form-control" id="genero" name="genero" required>
 		            <option th:each="genero : ${genero}" 
 		                    th:value="${genero.generoId}" 
 		                    th:text="${genero.nombre}">

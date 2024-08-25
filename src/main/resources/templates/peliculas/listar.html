@@ -8,6 +8,53 @@
             max-width: 100px; /* Ajusta el tamaño según tus necesidades */
             height: auto;
         }
+        
+        table {
+    width: 100%;
+    border-collapse: collapse;
+	}
+	
+	th, td {
+	    padding: 8px;
+	    text-align: left;
+	    border-bottom: 1px solid #ddd;
+	}
+	
+	th {
+	    background-color: #f2f2f2;
+	}
+	
+	tr:hover {
+	    background-color: #f5f5f5;
+	}
+	
+	.btn {
+	    padding: 8px 12px;
+	    text-decoration: none;
+	    border-radius: 4px;
+	    margin-right: 5px;
+	}
+	
+	.btn-primary {
+	    background-color: #007bff;
+	    color: white;
+	}
+	
+	.btn-warning {
+	    background-color: #ffc107;
+	    color: white;
+	}
+	
+	.btn-danger {
+	    background-color: #dc3545;
+	    color: white;
+	}
+	
+	.btn-secondary {
+	    background-color: #6c757d;
+	    color: white;
+	}
+	        
     </style>
 </head>
 <body>
@@ -20,6 +67,28 @@
     <div th:if="${error}" class="alert alert-danger">
         <p th:text="${error}"></p>
     </div>
+    
+    <form th:action="@{/peliculas/buscar}" method="get" class="mb-3" id="formBusqueda">
+	    <div class="form-group">
+	        <label for="titulo">Título</label>
+	        <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Buscar por título" th:value="${param.titulo}">
+	    </div>
+	    <div class="form-group">
+	        <label for="director">Director</label>
+	        <input type="text" id="director" name="director" class="form-control" placeholder="Buscar por director" th:value="${param.director}">
+	    </div>
+	    <div class="form-group">
+	        <label for="genero">Género</label>
+	        <select id="genero" name="generoId" class="form-control">
+	        <option value="">-- Seleccionar Género --</option>
+	            <option th:each="genero : ${genero}" 
+		                    th:value="${genero.generoId}" 
+		                    th:text="${genero.nombre}">
+		            </option>
+	        </select>
+	    </div>
+	    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+	</form>    
 
     <!-- Enlace para crear una nueva película -->
     <a href="/peliculas/crear" class="btn btn-primary">Crear Nueva Película</a>
@@ -59,8 +128,8 @@
             </tr>
         </tbody>
     </table>
-
-    <!-- Enlace para regresar a la página de inicio o a otra sección -->
-    <a href="/" class="btn btn-secondary">Regresar</a>
+    
+  	
+    
 </body>
 </html>
