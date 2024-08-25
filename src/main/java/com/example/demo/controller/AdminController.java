@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.RolEntity;
 import com.example.demo.entity.UsuarioEntity;
@@ -43,7 +45,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarAdmin(@ModelAttribute("admin") UsuarioEntity admin) {
+	public String guardarAdmin(@ModelAttribute("admin") UsuarioEntity admin, @RequestParam("file") MultipartFile file) {
 	    RolEntity rolAdmin = rolRepository.findByNombre("ADMIN").get();
 	    if (rolAdmin == null) {
 	        rolAdmin = new RolEntity();
@@ -51,7 +53,7 @@ public class AdminController {
 	        rolRepository.save(rolAdmin);
 	    }
 	    admin.setRol(rolAdmin);
-	    usuarioService.guardarUsuario(admin);
+	    usuarioService.guardarUsuario(admin, file);
 	    return "redirect:/admin/lista";
 	}
 	
@@ -66,11 +68,11 @@ public class AdminController {
 	}
 
 	@PostMapping("/actualizar")
-	public String actualizarAdmin(@ModelAttribute UsuarioEntity usuario) {
+	public String actualizarAdmin(@ModelAttribute UsuarioEntity usuario, @RequestParam("file") MultipartFile file) {
 	    // Asegúrate de que el rol es siempre Admin (puedes ajustar el ID según tu base de datos)
 	    RolEntity adminRole = rolRepository.findByNombre("ADMIN").get();
 	    usuario.setRol(adminRole);
-	    usuarioService.actualizarUsuario(usuario);
+	    usuarioService.actualizarUsuario(usuario, file);
 	    return "redirect:/admin/lista";
 	}
 

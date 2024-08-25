@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Empleado</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Registro de Empleado</h2>
+    <form th:action="@{/empleado/guardar}" th:object="${empleado}" method="post">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="apellido">Apellido:</label>
+            <input type="text" th:field="*{apellido}" class="form-control" id="apellido" placeholder="Ingresa tu apellido" required>
+        </div>
+        <div class="form-group">
+            <label for="dni">DNI:</label>
+            <input type="text" th:field="*{dni}" class="form-control" id="dni" placeholder="Ingresa tu DNI" required>
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" th:field="*{correo}" class="form-control" id="correo" placeholder="Ingresa tu correo" required>
+        </div>
+        <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input type="text" th:field="*{direccion}" class="form-control" id="direccion" placeholder="Ingresa tu dirección" required>
+        </div>
+        <div class="form-group">
+            <label for="estadoCivil">Estado Civil:</label>
+            <select th:field="*{estadoCivil}" class="form-control" id="estadoCivil">
+                <option value="SOLTERO">Soltero</option>
+                <option value="CASADO">Casado</option>
+                <option value="VIUDO">Viudo</option>
+                <option value="DIVORCIADO">Divorciado</option>
+            </select>
+        </div>
+        <div class="form-group">
+		    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+		    <input type="date" th:field="*{fechaNacimiento}" class="form-control" id="fechaNacimiento" required>
+		</div>
+        <div class="form-group">
+            <label for="sexo">Sexo:</label>
+            <select th:field="*{sexo}" class="form-control" id="sexo">
+                <option value="MASCULINO">Masculino</option>
+                <option value="FEMENINO">Femenino</option>
+                <option value="KBRO">kbro</option>
+                <option value="TRANSFORMER">transformer</option>
+                <option value="OTRO">Prefiero no decirlo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" th:field="*{telefono}" class="form-control" id="telefono" placeholder="Ingresa tu teléfono">
+        </div>
+        <div class="form-group">
+            <label for="nombreUsuario">Nombre de Usuario:</label>
+            <input type="text" th:field="*{nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Ingresa tu nombre de usuario" required>
+        </div>
+        <div class="form-group">
+            <label for="clave">Contraseña:</label>
+            <input type="password" th:field="*{clave}" class="form-control" id="clave" placeholder="Ingresa tu contraseña" required>
+        </div>
+        <div class="form-group">
+            <label for="tipoMembresia">Tipo de Membresía:</label>
+            <select th:field="*{tipoMembresia}" class="form-control" id="tipoMembresia">
+                <option value="REGULAR">Regular</option>
+                <option value="PREMIUM">Premium</option>
+            </select>
+        </div>
+        <input type="hidden" th:field="*{rol.nombre}" value="EMPLEADO">
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+</div>
+</body>
+</html>

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.RolEntity;
@@ -14,6 +15,7 @@ import com.example.demo.entity.UsuarioEntity;
 import com.example.demo.repository.RolRepository;
 import com.example.demo.service.UsuarioService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -63,7 +65,7 @@ public class AutenticacionController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UsuarioEntity cliente, RedirectAttributes redirectAttributes) {
+    public String register(@ModelAttribute UsuarioEntity cliente, RedirectAttributes redirectAttributes, @RequestParam("file") MultipartFile file) {
         if (usuarioService.correoYaRegistrado(cliente.getCorreo())) {
             redirectAttributes.addFlashAttribute("error", "El correo ya está registrado.");
             return "redirect:/register";
@@ -77,8 +79,17 @@ public class AutenticacionController {
         RolEntity rolCliente = rolRepository.findByNombre("CLIENTE").get();
         cliente.setRol(rolCliente);
         cliente.setClave(cliente.getClave());
-        usuarioService.guardarUsuario(cliente);
+        usuarioService.guardarUsuario(cliente, file);
         redirectAttributes.addFlashAttribute("success", "Registro exitoso!");
         return "redirect:/login";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        // Invalida la sesión
+        request.getSession().invalidate();
+        
+        // Redirige a la página de inicio de sesión o la página principal
+        return "redirect:/login"; // Cambia "/login" según sea necesario
     }
 }

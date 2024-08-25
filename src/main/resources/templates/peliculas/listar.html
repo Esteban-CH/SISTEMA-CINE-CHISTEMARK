@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Películas</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Asegúrate de tener una hoja de estilos adecuada -->
+	<style>
+        .img-thumbnail {
+            max-width: 100px; /* Ajusta el tamaño según tus necesidades */
+            height: auto;
+        }
+        
+        table {
+    width: 100%;
+    border-collapse: collapse;
+	}
+	
+	th, td {
+	    padding: 8px;
+	    text-align: left;
+	    border-bottom: 1px solid #ddd;
+	}
+	
+	th {
+	    background-color: #f2f2f2;
+	}
+	
+	tr:hover {
+	    background-color: #f5f5f5;
+	}
+	
+	.btn {
+	    padding: 8px 12px;
+	    text-decoration: none;
+	    border-radius: 4px;
+	    margin-right: 5px;
+	}
+	
+	.btn-primary {
+	    background-color: #007bff;
+	    color: white;
+	}
+	
+	.btn-warning {
+	    background-color: #ffc107;
+	    color: white;
+	}
+	
+	.btn-danger {
+	    background-color: #dc3545;
+	    color: white;
+	}
+	
+	.btn-secondary {
+	    background-color: #6c757d;
+	    color: white;
+	}
+	        
+    </style>
+</head>
+<body>
+    <h1>Lista de Películas</h1>
+
+    <!-- Mensajes de éxito o error -->
+    <div th:if="${success}" class="alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+    
+    <form th:action="@{/peliculas/buscar}" method="get" class="mb-3" id="formBusqueda">
+	    <div class="form-group">
+	        <label for="titulo">Título</label>
+	        <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Buscar por título" th:value="${param.titulo}">
+	    </div>
+	    <div class="form-group">
+	        <label for="director">Director</label>
+	        <input type="text" id="director" name="director" class="form-control" placeholder="Buscar por director" th:value="${param.director}">
+	    </div>
+	    <div class="form-group">
+	        <label for="genero">Género</label>
+	        <select id="genero" name="generoId" class="form-control">
+	        <option value="">-- Seleccionar Género --</option>
+	            <option th:each="genero : ${genero}" 
+		                    th:value="${genero.generoId}" 
+		                    th:text="${genero.nombre}">
+		            </option>
+	        </select>
+	    </div>
+	    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+	</form>    
+
+    <!-- Enlace para crear una nueva película -->
+    <a href="/peliculas/crear" class="btn btn-primary">Crear Nueva Película</a>
+
+    <!-- Tabla de películas -->
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Director</th>
+                <th>Calificación</th>
+                <th>Fecha de Estreno</th>
+                <th>Duración (min)</th>
+                <th>Género</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pelicula : ${peliculas}">
+                <td th:text="${pelicula.titulo}"></td>
+                <td th:text="${pelicula.descripcion}"></td>
+                <td th:text="${pelicula.director}"></td>
+                <td th:text="${pelicula.calificacion}"></td>
+                <td th:text="${#dates.format(pelicula.fchaEstreno, 'yyyy-MM-dd')}"></td>
+                <td th:text="${pelicula.duracion}"></td>
+                <td th:text="${pelicula.genero != null ? pelicula.genero.nombre : 'No definido'}"></td>
+				<td>
+                    <img th:src="@{/img/{nombreImagen}(nombreImagen=${pelicula.urlImagen})}" class="img-thumbnail" alt="Imagen del usuario">
+                </td>
+                <td>
+                    <a th:href="@{/peliculas/editar/{id}(id=${pelicula.peliculaId})}" class="btn btn-warning">Editar</a>
+                    <a th:href="@{/peliculas/eliminar/{id}(id=${pelicula.peliculaId})}" class="btn btn-danger" 
+                       onclick="return confirm('¿Estás seguro de que deseas eliminar esta película?')">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+  	
+    
+</body>
+</html>

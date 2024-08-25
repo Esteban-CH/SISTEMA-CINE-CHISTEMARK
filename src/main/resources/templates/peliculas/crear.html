@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Película</title>
+    <link rel="stylesheet" href="/path/to/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Nueva Película</h1>
+
+        <form th:action="@{/peliculas/crear}" th:object="${pelicula}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" th:value="${pelicula.titulo}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" th:text="${pelicula.descripcion}" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="director">Director</label>
+                <input type="text" id="director" name="director" th:value="${pelicula.director}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="calificacion">Calificación</label>
+                <input type="text" id="calificacion" name="calificacion" th:value="${pelicula.calificacion}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="reparto">Reparto</label>
+                <input type="text" id="reparto" name="reparto" th:value="${pelicula.reparto}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="fchaEstreno">Fecha de Estreno</label>
+                <input type="date" id="fchaEstreno" name="fchaEstreno" th:value="${pelicula.fchaEstreno}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="duracion">Duración (minutos)</label>
+                <input type="number" id="duracion" name="duracion" th:value="${pelicula.duracion}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="urlImagen">Imagen</label>
+                <input type="file" id="urlImagen" name="file" class="form-control">
+            </div>
+
+            <div class="form-group">                
+                <label for="genero">Género</label>
+		        <select class="form-control" id="genero" name="genero" required>
+		            <option th:each="genero : ${genero}" 
+		                    th:value="${genero.generoId}" 
+		                    th:text="${genero.nombre}">
+		            </option>
+		        </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Crear Película</button>
+        </form>
+
+        <a href="/peliculas/listar" class="btn btn-secondary mt-3">Volver a la lista</a>
+    </div>
+</body>
+</html>

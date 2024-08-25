@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.RolEntity;
 import com.example.demo.entity.UsuarioEntity;
@@ -33,11 +34,13 @@ public class UsuarioController {
     }
 
     @PostMapping("/guardar")
-    public String guardarUsuario(@ModelAttribute UsuarioEntity usuario, @RequestParam Long rolId) {
+    public String guardarUsuario(@ModelAttribute UsuarioEntity usuario, 
+                                 @RequestParam Long rolId, 
+                                 @RequestParam("file") MultipartFile file) {
         RolEntity rol = rolRepository.findById(rolId).get();
         usuario.setRol(rol);
-        usuarioService.guardarUsuario(usuario);
-        return "redirect:/usuarios";
+        usuarioService.guardarUsuario(usuario, file);
+        return "redirect:/usuarios"; // Redirige a la vista de usuarios
     }
 
     @GetMapping("/{id}")
@@ -63,10 +66,11 @@ public class UsuarioController {
 
     @PostMapping("/actualizar")
     public String actualizarUsuario(@ModelAttribute UsuarioEntity usuario,
-                                    @RequestParam Long rolId) {
+                                    @RequestParam Long rolId,
+                                    @RequestParam("file") MultipartFile file) {
         RolEntity rol = rolRepository.findById(rolId).get();
         usuario.setRol(rol);
-        usuarioService.actualizarUsuario(usuario);
+        usuarioService.actualizarUsuario(usuario, file);
         return "redirect:/usuarios";
     }
 

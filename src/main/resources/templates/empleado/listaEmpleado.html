@@ -16,7 +16,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>DNI</th>
-                <th>Correo</th>
+				<th>Imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -26,7 +26,9 @@
                 <td th:text="${usuario.nombre}"></td>
                 <td th:text="${usuario.apellido}"></td>
                 <td th:text="${usuario.dni}"></td>
-                <td th:text="${usuario.correo}"></td>
+				<td>
+                    <img th:src="@{/img/{nombreImagen}(nombreImagen=${usuario.urlImagen})}" class="img-thumbnail" alt="Imagen del usuario">
+                </td>
                 <td>
                     <a th:href="@{/empleado/{id}/editar(id=${usuario.usuarioId})}" class="btn btn-warning">Editar</a>
                     <a th:href="@{/empleado/{id}/eliminar(id=${usuario.usuarioId})}" class="btn btn-danger">Eliminar</a>

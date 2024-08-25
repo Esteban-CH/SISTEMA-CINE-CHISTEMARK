@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Lista de Usuarios</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Correo</th>
+                <th>Estado Civil</th>
+                <th>Sexo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.usuarioId}"></td>
+                <td th:text="${usuario.nombre}"></td>
+                <td th:text="${usuario.apellido}"></td>
+                <td th:text="${usuario.dni}"></td>
+                <td th:text="${usuario.correo}"></td>
+                <td th:text="${usuario.estadoCivil}"></td>
+                <td th:text="${usuario.sexo}"></td>
+                <td th:text="${usuario.rol.nombre}"></td>
+                <td>
+                    <a th:href="@{/usuarios/editar/{id}(id=${usuario.usuarioId})}" class="btn btn-warning btn-sm">Editar</a>
+                    <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.usuarioId})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#" th:href="@{/usuarios/nuevo}" class="btn btn-primary">Agregar Nuevo Usuario</a>
+</div>
+</body>
+</html>

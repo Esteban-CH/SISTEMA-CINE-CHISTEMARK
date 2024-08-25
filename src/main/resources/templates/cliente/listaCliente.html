@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Lista de Clientes</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+        .img-thumbnail {
+            max-width: 100px; /* Ajusta el tamaño según tus necesidades */
+            height: auto;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-5">
@@ -16,7 +22,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>DNI</th>
-                <th>Correo</th>
+                <th>Imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -26,7 +32,9 @@
                 <td th:text="${usuario.nombre}"></td>
                 <td th:text="${usuario.apellido}"></td>
                 <td th:text="${usuario.dni}"></td>
-                <td th:text="${usuario.correo}"></td>
+                <td>
+                    <img th:src="@{/img/{nombreImagen}(nombreImagen=${usuario.urlImagen})}" class="img-thumbnail" alt="Imagen del usuario">
+                </td>
                 <td>
                     <a th:href="@{/cliente/{id}/editar(id=${usuario.usuarioId})}" class="btn btn-warning">Editar</a>
                     <a th:href="@{/cliente/{id}/eliminar(id=${usuario.usuarioId})}" class="btn btn-danger">Eliminar</a>
