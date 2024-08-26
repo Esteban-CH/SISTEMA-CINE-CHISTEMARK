@@ -22,7 +22,7 @@ public class SalaServiceImpl implements SalaService{
 	}
 
 	@Override
-	public Optional<SalaEntity> obtenerSalaPorID(Long id) {
+	public Optional<SalaEntity> obtenerSalaPorId(Long id) {
 		return salaRepository.findById(id);
 	}
 

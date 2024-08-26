@@ -8,7 +8,7 @@ import com.example.demo.entity.SalaEntity;
 public interface SalaService {
 
 	List<SalaEntity> listarSalas();
-	Optional<SalaEntity> obtenerSalaPorID(Long id);
+	Optional<SalaEntity> obtenerSalaPorId(Long id);
 	SalaEntity crearSala(SalaEntity sala);
 	SalaEntity actualizarSala(SalaEntity sala);
 	void eliminarSala(Long id);
