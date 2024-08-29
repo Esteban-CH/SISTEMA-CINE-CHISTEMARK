@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Función</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <h1>Crear Nueva Función</h1>
+    <form th:action="@{/funciones/guardar}" th:object="${funcion}" method="post">
+        <label for="pelicula">Película:</label>
+        <select id="pelicula" name="pelicula" th:field="*{pelicula}" required>
+            <option th:each="peli : ${peliculas}" th:value="${peli.peliculaId}" th:text="${peli.titulo}"></option>
+        </select>
+        
+        <label for="sala">Sala:</label>
+        <select id="sala" name="sala" th:field="*{sala}" required>
+            <option th:each="sala : ${salas}" th:value="${sala.salaId}" th:text="${sala.nombre}"></option>
+        </select>
+
+        <label for="estado">Estado:</label>
+        <input type="text" id="estado" name="estado" th:field="*{estado}" required />
+        
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="#" th:href="@{/funciones}">Volver al Listado</a>
+</body>
+</html>

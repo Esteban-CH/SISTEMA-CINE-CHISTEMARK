@@ -37,7 +37,7 @@ public class SalaController {
     @PostMapping("/guardar")
     public String guardarSala(@ModelAttribute("sala") SalaEntity sala) {
         salaService.crearSala(sala);
-        return "redirect:/salas";
+        return "redirect:/sala";
     }
 
     @GetMapping("/editar/{id}")
@@ -51,12 +51,12 @@ public class SalaController {
     public String actualizarSala(@PathVariable Long id, @ModelAttribute("sala") SalaEntity sala) {
         sala.setSalaId(id);
         salaService.actualizarSala(sala);
-        return "redirect:/salas";
+        return "redirect:/sala";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarSala(@PathVariable Long id) {
         salaService.eliminarSala(id);
-        return "redirect:/salas";
+        return "redirect:/sala";
     }
 }

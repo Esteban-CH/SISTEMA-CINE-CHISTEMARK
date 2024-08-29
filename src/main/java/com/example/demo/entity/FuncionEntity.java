@@ -30,9 +30,10 @@ public class FuncionEntity {
     @JoinColumn(name = "sala_id", nullable = false)
 	private SalaEntity sala;
 	
-	@ManyToOne
-    @JoinColumn(name = "horario_id", nullable = false)
-	private HorarioEntity horario;
+	// Relación con la entidad Horario (Una función tiene muchos horarios)
+    @OneToMany(mappedBy = "funcion", cascade = CascadeType.ALL)
+    private List<HorarioEntity> horarios;
+    
 	private String estado;
 	
 	// Relación con la entidad Boleto

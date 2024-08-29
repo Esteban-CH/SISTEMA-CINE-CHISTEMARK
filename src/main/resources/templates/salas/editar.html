@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Sala</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Asegúrate de tener una hoja de estilos adecuada -->
+</head>
+<body>
+    <h1>Editar Sala</h1>
+
+    <!-- Formulario de edición -->
+    <form th:action="@{/sala/actualizar/{id}(id=${sala.salaId})}" th:object="${sala}" method="post">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" th:field="*{nombre}" required>
+        </div>
+        <div>
+            <label for="capacidad">Capacidad:</label>
+            <input type="number" id="capacidad" th:field="*{capacidad}" required>
+        </div>
+
+        <!-- Botones -->
+        <div>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a href="/sala" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</body>
+</html>
+ml>

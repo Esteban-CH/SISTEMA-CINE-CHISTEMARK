@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Horarios</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Lista de Horarios</h1>
+
+    <!-- Mensajes de éxito -->
+    <div th:if="${success}" class="alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
+
+    <!-- Enlace para crear un nuevo horario -->
+    <a href="/horarios/crear" class="btn btn-primary">Crear Nuevo Horario</a>
+
+    <!-- Tabla de horarios -->
+    <table>
+        <thead>
+            <tr>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
+                <th>Día de la Semana</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="horario : ${horarios}">
+                <td th:text="${horario.horaInicio}"></td>
+                <td th:text="${horario.horaFin}"></td>
+                <td th:text="${horario.diaSemana}"></td>
+                <td>
+                    <a th:href="@{/horarios/editar/{id}(id=${horario.horarioId})}" class="btn btn-warning">Editar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

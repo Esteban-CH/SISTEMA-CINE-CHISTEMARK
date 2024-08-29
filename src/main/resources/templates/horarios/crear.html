@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Horario</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Crear Horario</h1>
+
+    <!-- Formulario de creación de horario -->
+    <form action="#" th:action="@{/horarios/guardar}" th:object="${horario}" method="post">
+        <label for="horaInicio">Hora Inicio:</label>
+        <input type="time" id="horaInicio" th:field="*{horaInicio}" required/>
+
+        <label for="horaFin">Hora Fin:</label>
+        <input type="time" id="horaFin" th:field="*{horaFin}" required/>
+
+        <label for="diaSemana">Día de la Semana:</label>
+        <input type="text" id="diaSemana" th:field="*{diaSemana}" required/>
+        
+        <select name="funcion.funcionId" th:field="*{funcion.funcionId}" required>
+		    <option value="" disabled selected>Seleccione una función</option>
+		    <option th:each="funcion : ${funciones}" th:value="${funcion.funcionId}" th:text="${funcion.funcionId}"></option>
+		</select>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+
+    <a href="/horarios" class="btn btn-secondary">Regresar</a>
+</body>
+</html>

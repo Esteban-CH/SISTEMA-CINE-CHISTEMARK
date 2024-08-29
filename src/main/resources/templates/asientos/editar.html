@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Asiento</title>
+</head>
+<body>
+    <h1>Editar Asiento</h1>
+
+    <form th:action="@{/asientos/editar/{id}(id=${asiento.asientoId})}" th:object="${asiento}" method="post">
+        <div>
+            <label for="numero">Número de Asiento:</label>
+            <input type="text" id="numero" th:field="*{numero}" required>
+        </div>
+        <div>
+            <label for="sala">Sala:</label>
+            <select id="sala" th:field="*{sala.salaId}" required>
+                <option th:each="sala : ${salas}" th:value="${sala.salaId}" th:text="${sala.nombre}"></option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Guardar</button>
+        </div>
+    </form>
+
+    <a href="/asientos" class="btn btn-secondary">Regresar</a>
+</body>
+</html>

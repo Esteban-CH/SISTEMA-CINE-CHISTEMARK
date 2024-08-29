@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Asientos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Lista de Asientos</h1>
+
+    <div th:if="${success}" class="alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
+
+    <a href="/asientos/crear" class="btn btn-primary">Crear Nuevo Asiento</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Número de Asiento</th>
+                <th>Sala</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="asiento : ${asientos}">
+                <td th:text="${asiento.numero}"></td>
+                <td th:text="${asiento.sala.nombre}"></td>
+                <td>
+                    <a th:href="@{/asientos/editar/{id}(id=${asiento.asientoId})}" class="btn btn-warning">Editar</a>
+                    <a th:href="@{/asientos/eliminar/{id}(id=${asiento.asientoId})}" class="btn btn-danger" 
+                       onclick="return confirm('¿Estás seguro de que deseas eliminar este asiento?')">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/" class="btn btn-secondary">Regresar</a>
+</body>
+</html>

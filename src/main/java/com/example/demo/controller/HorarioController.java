@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.HorarioEntity;
+import com.example.demo.service.FuncionService;
 import com.example.demo.service.HorarioService;
 
 @Controller
@@ -20,6 +21,9 @@ public class HorarioController {
 
 	@Autowired
     private HorarioService horarioService;
+	
+	@Autowired
+	private FuncionService funcionService;
 
     @GetMapping
     public String listarHorarios(Model model) {
@@ -31,6 +35,7 @@ public class HorarioController {
     @GetMapping("/crear")
     public String mostrarFormularioCrearHorario(Model model) {
         model.addAttribute("horario", new HorarioEntity());
+        model.addAttribute("funciones", funcionService.listarFunciones());
         return "horarios/crear";
     }
 
@@ -43,6 +48,7 @@ public class HorarioController {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditarHorario(@PathVariable Long id, Model model) {
         HorarioEntity horario = horarioService.obtenerHorarioPorId(id);
+        model.addAttribute("funciones", funcionService.listarFunciones());
         model.addAttribute("horario", horario);
         return "horarios/editar";
     }

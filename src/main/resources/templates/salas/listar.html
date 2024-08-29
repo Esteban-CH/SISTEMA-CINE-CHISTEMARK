@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Salas</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Asegúrate de tener una hoja de estilos adecuada -->
+</head>
+<body>
+    <h1>Lista de Salas</h1>
+
+    <!-- Mensajes de éxito o error -->
+    <div th:if="${success}" class="alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- Enlace para crear una nueva sala -->
+    <a href="/sala/crear" class="btn btn-primary">Registrar Nueva Sala</a>
+
+    <!-- Tabla de salas -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Capacidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="sala : ${salas}">
+                <td th:text="${sala.nombre}"></td>
+                <td th:text="${sala.capacidad}"></td>
+                <td>
+                    <a th:href="@{/sala/editar/{id}(id=${sala.salaId})}" class="btn btn-warning">Editar</a>
+                    <a th:href="@{/sala/eliminar/{id}(id=${sala.salaId})}" class="btn btn-danger" 
+                       onclick="return confirm('¿Estás seguro de que deseas eliminar esta sala?')">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Enlace para regresar a la página de inicio o a otra sección -->
+    <a href="/" class="btn btn-secondary">Regresar</a>
+</body>
+</html>

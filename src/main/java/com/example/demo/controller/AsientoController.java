@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.AsientoEntity;
+import com.example.demo.repository.SalaRepository;
 import com.example.demo.service.AsientoService;
+import com.example.demo.service.SalaService;
 
 @Controller
 @RequestMapping("/asientos")
@@ -21,6 +23,9 @@ public class AsientoController {
 	@Autowired
     private AsientoService asientoService;
 
+	@Autowired
+	private SalaService salaService;
+	
     @GetMapping
     public String listarAsientos(Model model) {
         List<AsientoEntity> asientos = asientoService.listarAsientos();
@@ -31,6 +36,7 @@ public class AsientoController {
     @GetMapping("/crear")
     public String mostrarFormularioCrearAsiento(Model model) {
         model.addAttribute("asiento", new AsientoEntity());
+        model.addAttribute("salas", salaService.listarSalas());
         return "asientos/crear";
     }
 
@@ -43,6 +49,7 @@ public class AsientoController {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditarAsiento(@PathVariable Long id, Model model) {
         AsientoEntity asiento = asientoService.obtenerAsientoPorId(id);
+        model.addAttribute("salas", salaService.listarSalas());
         model.addAttribute("asiento", asiento);
         return "asientos/editar";
     }

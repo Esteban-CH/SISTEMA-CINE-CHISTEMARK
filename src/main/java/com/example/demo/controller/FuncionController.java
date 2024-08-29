@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.FuncionEntity;
 import com.example.demo.service.FuncionService;
+import com.example.demo.service.HorarioService;
+import com.example.demo.service.PeliculaService;
+import com.example.demo.service.SalaService;
 
 @Controller
 @RequestMapping("/funciones")
@@ -20,6 +23,15 @@ public class FuncionController {
 	
 	@Autowired
     private FuncionService funcionService;
+	
+	@Autowired
+    private HorarioService horarioService;
+
+    @Autowired
+    private PeliculaService peliculaService;
+
+    @Autowired
+    private SalaService salaService;
 
     @GetMapping
     public String listarFunciones(Model model) {
@@ -31,6 +43,9 @@ public class FuncionController {
     @GetMapping("/crear")
     public String mostrarFormularioCrearFuncion(Model model) {
         model.addAttribute("funcion", new FuncionEntity());
+        model.addAttribute("peliculas", peliculaService.listarPeliculas());
+        model.addAttribute("salas", salaService.listarSalas());
+        model.addAttribute("horarios", horarioService.listarHorarios());
         return "funciones/crear";
     }
 
@@ -44,6 +59,9 @@ public class FuncionController {
     public String mostrarFormularioEditarFuncion(@PathVariable Long id, Model model) {
         FuncionEntity funcion = funcionService.obtenerFuncionPorId(id);
         model.addAttribute("funcion", funcion);
+        model.addAttribute("peliculas", peliculaService.listarPeliculas());
+        model.addAttribute("salas", salaService.listarSalas());
+        model.addAttribute("horarios", horarioService.listarHorarios());
         return "funciones/editar";
     }
 
